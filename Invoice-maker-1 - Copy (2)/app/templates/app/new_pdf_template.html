@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>{{party_name}}</title>
+		<!-- <link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet"> -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<style>
+
+/* @font-face { */
+				/* font-family: Pacifico;
+				src: url('C:/Users/kppad/Downloads/pacifico.ttf'); */
+				
+				/* font-family: Source Sans Pro;
+				font-weight: 400;
+				src: url('C:/Users/kppad/Downloads/sourcesanspro-regular.otf'); */
+				/* font-family: Source Sans Pro; 
+				font-weight: 700;
+				src: url('C:/Users/kppad/Downloads/sourcesanspro-bold.otf'); */
+				/* font-family : Raleway;
+				src: url('C:/Users/kppad/Downloads/Raleway-VariableFont_wght.ttf'); */
+			/* } */
+
+			/* @import 'https://fonts.gstatic.com';
+			@import 'https://fonts.googleapis.com/css2?family=Raleway&display=swap';
+			@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700'; */
+			/* @font-face {
+				src: url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+			font-family: 'Raleway', sans-serif;
+            
+        } */
+			@font-face {
+				font-family: PTSans;
+				/* font-weight: bolder;
+				color: black; */
+				src: url("C:/Users/kppad/Downloads/PTSans-Regular.ttf");
+			}
+			*
+			{
+				 font-family : PTSans;
+					/* font-weight: bolder;
+					color: black; */
+				 /* src: url("C:/Users/kppad/Downloads/Raleway-VariableFont_wght.ttf"); */ 
+				/* font-family: Times-Roman; */
+				/* font-family: 'Lato'; */
+				/* font-family: "Source Sans Pro", Helvetica, Arial, sans-serif; */
+			}	
+			/* body{ */
+			/* background-color: #292929; */
+			/* color: white; */
+			/* font-family: 'Raleway', sans-serif; */
+			/* font-family: "Source Sans Pro", Helvetica, Arial, sans-serif; */
+		/* } */
+			.first
+			{
+				/* border: 1px solid red; */
+				padding: 6px;
+			}
+			td
+			{
+				font-size: 13px;
+				/* border: none; */
+				text-align: center;	
+			}
+			table
+			{
+				
+				/* margin-top: 10px; */
+			}
+			table,tr,td
+			{
+				border: 0px solid black;
+			}
+			.head
+			{
+				font-size: 13px;
+			}
+			
+		
+
+		</style>
+	</head>
+
+	<body>
+		<!-- <center></center> -->
+		<table style="width: 100%; border: 0px solid black; background-color: wheat;">
+			<tr style="border: none;">
+				<td style="border: none; height:40px; font-size: 13px; line-height: 10px;">GSTIN : 24AVYPP6532H1Z0</td>
+				<td style="border: none; height:40px; font-size: 13px; line-height: 10px;">CASH / DEBIT MEMO</td>
+				<td style="border: none; height:40px; font-size: 13px; line-height: 10px;">Mob. 98257 95340</td>
+			</tr>
+			<tr style="border: none;">
+				<td colspan="3" style="text-align: center; font-size: 30px; border: none; height:40px; line-height: 30px;">
+					<b>SARDAR ENTERPRISE</b></td>
+				</td>
+			</tr>
+			<tr style="border: none;">
+			<td colspan="3" style="border: none; height: 30px; font-size: 16px; font-weight: bolder; line-height: 25px;">
+					Supplier of China Clay & Ceramic Raw Materials
+				</td>
+			</tr>
+			<tr style="border: none;">
+				<td colspan="3" style="height: 30px; border: none; font-size: 13px; line-height: 30px;">
+					At. Nani Vavdi, Kumbhar Street, Ta., Di. Morbi. (Guj.) INDIA
+				</td>
+			</tr>
+		</table>
+        <br>
+        <table>
+            <tr>
+                <td>INVOICE</td>
+                <td>RECEIVER INFO: </td>
+            </tr>
+            <tr>
+                <td>Date: </td>
+                <td>Name: </td>
+            </tr>
+            <tr>
+                <td>Invoice no: </td>
+                <td>Address: </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>GSTIN: </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>State: Gujarat, State code: 24</td>
+            </tr>
+        </table>
+        </table>
+        <span style="font-size: 20px;">RECEIVER</span>
+        <table style="padding:4px; margin-top: 4px;" >
+			<tr style="background-color: #f2f2f2;">	
+				<td style="text-align: left; font-size: 14px; line-height: 0px; width: 60%;">Party Name : {{party_name}}</td>	<!--old fonr size 12 -->
+				<td style="text-align: left; font-size: 14px; line-height: 0px;">Invoice No. : {{invoice_no}}</td>
+			</tr>
+			<tr>
+				<td style="text-align: left; font-size: 14px; line-height: 0px;">Address : {{address}}</td>
+				<td style="text-align: left; font-size: 14px; line-height: 0px;">Date : {{date}}</td>
+			</tr>
+			<tr style="background-color: #f2f2f2;">
+				<td style="text-align: left; font-size: 14px; line-height: 0px;">GSTIN : {{gstno}}</td>
+				<td style="text-align: left; font-size: 14px; line-height: 0px;">Truck No : GJ-12-BV-0703</td>
+			</tr>
+			<tr>
+				<td style="text-align: left; font-size: 14px; line-height: 0px;">State : Gujarat</td>
+				<td style="text-align: left; font-size: 14px; line-height: 0px;">State Code : 24</td>
+			</tr>
+		</table>
+
+		<table style="padding:5px; margin-top: 4px; background-color: wheat;">
+            
+			<tr>
+				<td colspan="2" style="text-align: left; font-size: 11px; border-right: none;"><u style="font-weight: bolder;">Terms & Conditions</u><br>
+					1. Freight extra. On to pay basis.<br>
+					2. There will be no responsibility after delivery of goods from our godown.<br>
+					3. We hereby certify that goods mentioned in this bill warranted  to be of the nature & quality which it purposes to be.<br>
+					4. Payment should  be made within 15 days of the date of delivery.<br>
+					5. We will charge 10% extra of total amount after due date.<br>
+					6. Subject to Morbi Jurisdiction.
+
+				</td>
+				<td colspan="4" style="text-align: right; vertical-align: top; border-left: none;">
+					<br>
+					<span style="font-size: 12px; margin-top:130px;">Certified that the particulars given above are true and correct</span><br>
+					<span style="height: 20px;"></span><br>
+					<span style="font-weight: bolder; font-size: 20px; height: 50px; line-height:10px;">FOR, SARDAR ENTERPRISE</span><br>
+					<span></span><br><br><br>
+					<span>Authorised Signature</span>
+				</td>
+			
+				</tr>
+		</table>
+
+	</body>
+</html>

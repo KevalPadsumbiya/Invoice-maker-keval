@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form label {
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            var sectionCount = 1;
+
+            // Add a new section dynamically
+            $("#add-section-btn").click(function(e) {
+                e.preventDefault();
+                sectionCount++;
+
+                var sectionHtml = `
+                <div id="section-${sectionCount}">
+                    <h4>Particular ${sectionCount}</h4>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="particular-${sectionCount}">Particular:</label>
+                            <input type="text" class="form-control" id="particular-${sectionCount}" name="particular-${sectionCount}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="hsn-code-${sectionCount}">HSN Code:</label>
+                            <input type="text" class="form-control" id="hsn-code-${sectionCount}" name="hsn-code-${sectionCount}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="quantity-${sectionCount}">Qty(Kg):</label>
+                            <input type="text" class="form-control" id="quantity-${sectionCount}" name="quantity-${sectionCount}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="rate-${sectionCount}">Rate(per Ton):</label>
+                            <input type="number" step="0.01" class="form-control" id="rate-${sectionCount}" name="rate-${sectionCount}" required>
+                        </div>
+                    </div>
+                </div>`;
+
+                $("#sections-container").append(sectionHtml);
+            });
+
+            // Remove the last section dynamically
+            $("#remove-section-btn").click(function(e) {
+                e.preventDefault();
+                if (sectionCount > 1) {
+                    $("#section-" + sectionCount).remove();
+                    sectionCount--;
+                }
+            });
+
+
+            // Submit form as JSON payload
+            $("#invoice-form").submit(function(e) {
+                e.preventDefault();
+
+                // Create the JSON object
+                var invoiceData = {
+                    yourName: $("#name").val(),
+                    yourEmail: $("#email").val(),
+                    yourBusinessGSTIN: $("#gstin").val(),
+                    yourMobileNumber: $("#mobile").val(),
+                    yourBusinessName: $("#business-name").val(),
+                    yourBusinessAddress: $("#business-address").val(),
+                    yourBusinessSubtitle: $("#business-subtitle").val(),
+                    clientName: $("#client-name").val(),
+                    clientAddress: $("#client-address").val(),
+                    clientGSTIN: $("#client-gstin").val(),
+                    invoiceNo: $("#invoice-no").val(),
+                    invoiceDate: $("#invoice-date").val(),
+                    truckNo: $("#truck-no").val(),
+                    clientStateCode: $("#client-state-code").val(),
+                    transporterName: $("#transporter-name").val(),
+                    yourBankName: $("#bank-name").val(),
+                    yourBankAccountNumber: $("#bank-account-no").val(),
+                    yourBankIFSCCode: $("#bank-ifsc").val(),
+                    SGST: $("#sgst").val(),
+                    IGST: $("#igst").val(),
+                    particulars: []
+                };
+
+                // Add sections to the JSON object
+                for (var i = 1; i <= sectionCount; i++) {
+                    var section = {
+                        particular: $(`#particular-${i}`).val(),
+                        hsnCode: $(`#hsn-code-${i}`).val(),
+                        quantity: $(`#quantity-${i}`).val(),
+                        rate: $(`#rate-${i}`).val()
+                    };
+                    invoiceData.particulars.push(section);
+                }
+
+                // Convert the JSON object to a JSON string
+                var jsonData = JSON.stringify(invoiceData);
+
+                // Send the JSON data as a POST request
+                $.ajax({
+                    url: "pdf_view/",
+                    type: "POST",
+                    data: jsonData,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(response) {
+                        // Handle the response here, if needed
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        // Handle the error here, if any
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+<h1>Invoice Form</h1>
+<form id="invoice-form" method="get" action="{% url 'pdf_view' %}" target="_blank">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="col-md-6">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="gstin">GSTIN:</label>
+            <input type="text" class="form-control" id="gstin" name="gstin" required>
+        </div>
+        <div class="col-md-6">
+            <label for="mobile">Mobile No:</label>
+            <input type="tel" class="form-control" id="mobile" name="mobile" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="business-name">Your Business Name:</label>
+            <input type="text" class="form-control" id="business-name" name="business-name" required>
+        </div>
+        <div class="col-md-6">
+            <label for="business-address">Your Business Address:</label>
+            <input type="text" class="form-control" id="business-address" name="business-address" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="business-subtitle">Your Business Subtitle:</label>
+            <input type="text" class="form-control" id="business-subtitle" name="business-subtitle" required>
+        </div>
+        <div class="col-md-6">
+            <label for="client-name">Client Name:</label>
+            <input type="text" class="form-control" id="client-name" name="client-name" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="client-address">Client Address:</label>
+            <input type="text" class="form-control" id="client-address" name="client-address" required>
+        </div>
+        <div class="col-md-6">
+            <label for="client-gstin">Client GSTIN:</label>
+            <input type="text" class="form-control" id="client-gstin" name="client-gstin" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="invoice-no">Invoice No:</label>
+            <input type="text" class="form-control" id="invoice-no" name="invoice-no" required>
+        </div>
+        <div class="col-md-6">
+            <label for="invoice-date">Invoice Date:</label>
+            <input type="date" class="form-control" id="invoice-date" name="invoice-date" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="truck-no">Truck No:</label>
+            <input type="text" class="form-control" id="truck-no" name="truck-no" required>
+        </div>
+        <div class="col-md-6">
+            <label for="client-state-code">Client State Code:</label>
+            <select class="form-control" id="client-state-code" name="client-state-code" required>
+                <option value="">Select</option>
+                <option value="01">01 - Jammu and Kashmir</option>
+                <option value="02">02 - Himachal Pradesh</option>
+                <option value="03">03 - Punjab</option>
+                <option value="04">04 - Chandigarh</option>
+                <option value="05">05 - Uttarakhand</option>
+                <option value="06">06 - Haryana</option>
+                <option value="07">07 - Delhi</option>
+                <option value="08">08 - Rajasthan</option>
+                <option value="09">09 - Uttar Pradesh</option>
+                <option value="10">10 - Bihar</option>
+                <option value="11">11 - Sikkim</option>
+                <option value="12">12 - Arunachal Pradesh</option>
+                <option value="13">13 - Nagaland</option>
+                <option value="14">14 - Manipur</option>
+                <option value="15">15 - Mizoram</option>
+                <option value="16">16 - Tripura</option>
+                <option value="17">17 - Meghalaya</option>
+                <option value="18">18 - Assam</option>
+                <option value="19">19 - West Bengal</option>
+                <option value="20">20 - Jharkhand</option>
+                <option value="21">21 - Odisha</option>
+                <option value="22">22 - Chhattisgarh</option>
+                <option value="23">23 - Madhya Pradesh</option>
+                <option value="24">24 - Gujarat</option>
+                <option value="26">26 - Dadra and Nagar Haveli and Daman and Diu (Newly Merged UT)</option>
+                <option value="27">27 - Maharashtra</option>
+                <option value="28">28 - Andhra Pradesh (Before Division)</option>
+                <option value="29">29 - Karnataka</option>
+                <option value="30">30 - Goa</option>
+                <option value="31">31 - Lakshadweep</option>
+                <option value="32">32 - Kerala</option>
+                <option value="33">33 - Tamil Nadu</option>
+                <option value="34">34 - Puducherry</option>
+                <option value="35">35 - Andaman and Nicobar Islands</option>
+                <option value="36">36 - Telangana</option>
+                <option value="37">37 - Andhra Pradesh (Newly Added)</option>
+                <option value="38">38 - Ladakh (Newly Added)</option>
+                <option value="97">97 - Other Territory</option>
+                <option value="99">99 - Centre Jurisdiction</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="sections-container">
+        <div id="section-1">
+            <h4>Particular 1</h4>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="particular-1">Particular:</label>
+                    <input type="text" class="form-control" id="particular-1" name="particular-1" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="hsn-code-1">HSN Code:</label>
+                    <input type="text" class="form-control" id="hsn-code-1" name="hsn-code-1" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="quantity-1">Qty(Kg):</label>
+                    <input type="text" class="form-control" id="quantity-1" name="quantity-1" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="rate-1">Rate(per Ton):</label>
+                    <input type="number" step="0.01" class="form-control" id="rate-1" name="rate-1" required>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="add-section-btn" type="button" class="btn btn-primary">Add Section</button>
+    <button id="remove-section-btn" type="button" class="btn btn-danger">Remove Section</button>
+
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="transporter-name">Transporter Name:</label>
+            <input type="text" class="form-control" id="transporter-name" name="transporter-name" required>
+        </div>
+        <div class="col-md-6">
+            <label for="bank-name">Your Bank Name:</label>
+            <input type="text" class="form-control" id="bank-name" name="bank-name" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="bank-account-no">Your Bank Account No:</label>
+            <input type="text" class="form-control" id="bank-account-no" name="bank-account-no" required>
+        </div>
+        <div class="col-md-6">
+            <label for="bank-ifsc">Your Bank Account IFSC Code:</label>
+            <input type="text" class="form-control" id="bank-ifsc" name="bank-ifsc" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="sgst">SGST:</label>
+            <input type="number" step="0.01" class="form-control" id="sgst" name="sgst" required>
+        </div>
+        <div class="col-md-6">
+            <label for="igst">IGST:</label>
+            <input type="number" step="0.01" class="form-control" id="igst" name="igst" required>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</body>
+</html>

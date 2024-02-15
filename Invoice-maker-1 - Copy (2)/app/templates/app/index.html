@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice maker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Latest compiled and minified bootstrap CSS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+
+    <link rel="stylesheet" href=
+            "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/577845f6a5.js"
+            crossorigin="anonymous">
+    </script>
+
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
+    </script>
+    <script src=
+                    "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js">
+    </script>
+    <script src=
+                    "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+    <style>
+		body {
+			background: #f2f2f2;
+			font-size: 16px;
+			/* font-family: 'Raleway', sans-serif; */
+			color: black;
+			font-weight: 550;
+			font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+		}
+
+		input[type='text'],
+		input[type="number"],
+		input[type="date"] {
+			font-size: 17px;
+			text-align: center;
+		}
+
+		table {
+			width: 600px;
+		}
+
+		.labels {
+			width: 215px;
+			text-align: center;
+		}
+
+		.fields {
+			width: 385px;
+		}
+
+		tr {
+			height: 45px;
+		}
+
+		select,
+		option {
+			color: black;
+			height: 30px;
+			border-radius: 4px;
+		}
+
+		@media only screen and (max-width: 600px) {
+			table {
+			width: 100%;
+			}
+
+			.labels {
+				width: 30%;
+				text-align: center;
+			}
+
+			.fields {
+				width: 70%;
+			}
+		}
+		/* background: #1E1E1E; */
+	</style>
+</head>
+<!-- style="background: url('https://i.postimg.cc/BbBNdgTf/watermark.jpg');" -->
+<body>
+
+<center>
+    <h1><b>INVOICE MAKER</b></h1>
+    <div style="padding: 10px; border-radius: 5px;">
+        <form method="get" action="{% url 'pdf_view' %}" target="_blank">
+            {% csrf_token %}
+
+            <table>
+                <tr>
+                    <td class="labels">Party name</td>
+                    <td class="fields">
+                        <select name="party_name" id="party_name" onchange="selectOps()" class="custom-select" style="width: 100%; font-size: 16px;">
+                            <option value="Kailash Chemicals" selected>Kailash Chemicals</option>
+                            <option value="Romest Selichem L.L.P">Romest Selichem L.L.P</option>
+                            <option value="Radhe Minerals">Radhe Minerals</option>
+                            <option value="Positive Micron L.L.P">Positive Micron L.L.P</option>
+                            <option value="Viva Minerals">Viva Minerals</option>
+                            <option value="Coral Gold Tiles PVT LTD">Coral Gold Tiles PVT LTD</option>
+                            <option value="Amora Tiles PVT LTD">Amora Tiles PVT LTD</option>
+                            <option value="Strong Mineral">Strong Mineral</option>
+                            <option value="Madhusudan Ceramic">Madhusudan Ceramic</option>
+                            <option value="Nexa Minerals LLP">Nexa Minerals LLP</option>
+                            <option value="Meracus Mineral LLP">Meracus Mineral LLP</option>
+                            <option value="Shivam Flexo LLP">Shivam Flexo LLP</option>
+                            <option value="Om Industries">Om Industries</option>
+                            <option value="Skysun Industries">Skysun Industries</option>
+                            <option value="Marazen Chem">Marazen Chem</option>
+                            <option value="Anjani Micron">Anjani Micron</option>
+                            <option value="Dukoll">Dukoll</option>
+                            <option value="Anjani Minerals">Anjani Minerals</option>
+                            <option value="Grafite Ceramics Private Limited">Grafite Ceramics</option>
+                            <option value="Shree Ram Mineral">Shree Ram Mineral</option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labels">Address</td>
+                    <td class="fields">
+                        <select name="address" id="address" onchange="selectOps1()" class="custom-select" style="width: 100%; font-size: 16px;">
+                            <option value="Point No-1, City industrial, Halvad highway, Morbi" selected>Kailash  - Point No-1, City industrial, Halvad highway, Morbi</option>
+                            <option value="Survey No-26P-2, At-Bela Rangpar, Morbi">Romest - Survey No.-26P-2, At-Bela Rangpar, Morbi</option>
+                            <option value="Maruti Ind., Plot No-3, Jetpar road, Morbi">Radhe - Maruti Ind., Plot No-3, Jetpar road, Morbi</option>
+                            <option value="Survey No-35/36, Kandala road, Timbadi patiya, Morbi">Positive - Survey No-35/36, Kandala road, Timbadi patiya, Morbi</option>
+                            <option value="Survey No-263/P3, Nani Vavdi, Morbi">Viva - Survey No-263/P3, Nani Vavdi, Morbi</option>
+                            <option value="NH 8-A, Laghdhirpur Road, Morbi-2">Coral - NH 8-A, Laghdhirpur Road, Morbi-2</option>
+                            <option value="Sartanpar Road, Ta-Wankaner, Morbi">Amora - Sartanpar Road, Ta-Wankaner, Morbi</option>
+                            <option value="Unchi Mandal, Survey No 93 P3, Plot No 7, Morbi">Strong - Unchi Mandal, Survey No 93 P3, Plot No 7, Morbi</option>
+                            <option value="Near Solarium Ceramic, Jetpar Road, At Jasmatgadh">Madhusudan - Near Solarium Ceramic, Jetpar Road, At Jasmatgadh</option>
+                            <option value="Plot No-2, Survey No-93 P 3, Kailash Industries, Halvad Road, Unchi Mandal, Morbi">Nexa - Plot No-2, Survey No-93 P 3, Kailash Industries</option>
+                            <option value="Old Ghutu Road, Near Sona Ceramic, Morbi">Meracus - Old Ghutu Road, Near Sona Ceramic, Morbi</option>
+                            <option value="Lakhdhir Nagar Road, Survey No- 54/2P4, Plot No-22, Morbi">Shivam - Lakhdhir Nagar Road, Survey No- 54/2P4, Plot No-22, Morbi</option>
+                            <option value="Plot no-8, Metro Estate, Lakhdhirpur Road, Morbi">Om - Plot no-8, Metro Estate, Lakhdhirpur Road, Morbi</option>
+                            <option value="Pipdi Bela Road, Morbi">Skysun - Pipdi Bela Road, Morbi</option>
+                            <option value="Survey no 82, Behind Orbit Chamber 1&2, 8A-National Highway, Timbadi, Morbi, 363642">Marazen - Survey no 82, Behind Orbit Chamber 1&2, 8A-National Highway, Timbadi, Morbi, 363642</option>
+                            <option value="8/A National Highway, Matel Road, Opp Umiya Ceramic, Dhuva, Vankaner">Ajnani Micron - 8/A National Highway, Matel Road, Opp Umiya Ceramic, Dhuva, Vankaner</option>
+                            <option value="Survey no 1524, Gadhoda, Ta - Himatnagar, Gujarat, 383001">Dukoll - Survey no 1524, Gadhoda, Ta - Himatnagar, Gujarat, 383001</option>
+                            <option value="Near Sun Particle Board, Plot No-2, Survey No-444 P2/P2, Haripar-Kerala Road, 8-A National Highway, At-Bela(Rangpar), Morbi, 363642">Anjani Minerals - Near Sun Particle Board, Plot No-2, Survey No-444 P2/P2, Haripar-Kerala Road, 8-A National Highway, At-Bela(Rangpar), Morbi, 363642</option>
+                            <option value="Survey No 16P1, Trajpar, Old Ghutu Road, Morbi, 363642">Grafite Ceramics - Survey No 16P1, Trajpar, Old Ghutu Road, Morbi, 363642</option>
+                            <option value="Pipli Road, Morbi-2, 363642">Shree Ram Mineral - Pipli Road, Morbi-2, 363642</option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labels">GSTIN</td>
+                    <td class="fields">
+                        <select name="gstno" id="gstno" onchange="selectOps2()" class="custom-select" style="width: 100%; font-size: 16px;">
+                            <option value="24AAOFK6625R1ZK" selected>Kailash - 24AAOFK6625R1ZK</option>
+                            <option value="24AAVFR826IRIZ2">Romest - 24AAVFR8261RIZ2</option>
+                            <option value="24AAVFR6079B1ZV">Radhe - 24AAVFR6079B1ZV</option>
+                            <option value="24AAUFP5272BI25">Positive - 24AAUFP5272B1Z5</option>
+                            <option value="24AAPFV2187E1ZY">Viva - 24AAPFV2187E1ZY</option>
+                            <option value="24AADCC2024L1Z0">Coral - 24AADCC2024L1Z0</option>
+                            <option value="24AALCA6805H1ZQ">Amora - 24AALCA6805H1ZQ</option>
+                            <option value="24ADIFS1338N1ZS">Strong - 24ADIFS1338N1ZS</option>
+                            <option value="24AAXFM7835Q1Z5">Madhusudan - 24AAXFM7835Q1Z5</option>
+                            <option value="24AANFN9740K1ZQ">Nexa - 24AANFN9740K1ZQ</option>
+                            <option value="24AAZFM7085Q1Z1">Meracus - 24AAZFM7085Q1Z1</option>
+                            <option value="24AEMFS7551J1ZJ">Shivam - 24AEMFS7551J1ZJ</option>
+                            <option value="24AAEFO3175G1ZE">Om - 24AAEFO3175G1ZE</option>
+                            <option value="24ADHFS1296C1Z7">Skysun - 24ADHFS1296C1Z7</option>
+                            <option value="24ABQFM0056K1Z3">Marazen - 24ABQFM0056K1Z3</option>
+                            <option value="24ABKFA1928J1ZG">Anjani Micron - 24ABKFA1928J1ZG</option>
+                            <option value="24AAUFD5139RIZM">Dukoll - 24AAUFD5139RIZM</option>
+                            <option value="24ABXFA5519N1ZS">Anjani Minerals - 24ABXFA5519N1ZS</option>
+                            <option value="24AALCS2727A1ZP">Grafite Ceramics - 24AALCS2727A1ZP</option>
+                            <option value="24ACWFS2752B1Z1">Shree Ram Mineral - 24ACWFS2752B1Z1</option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labels">Invoice No</td>
+                    <td class="fields"><input type="number" name="invoice_no" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="labels">Date</td>
+                    <td class="fields"><input type="date" name="date" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="labels">Qty</td>
+                    <td class="fields"><input type="number" id="qty" placeholder="" style="text-align: center;"  name="qty" onchange oninput="cal_total()" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="labels">Rate</td>
+                    <td class="fields"><input type="number" id="rate" placeholder="" style="text-align: center;"  name="rate" onchange oninput="cal_total()" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="labels">Total</td>
+                    <td class="fields"><input type="number" id="total" placeholder="-" style="text-align: center; font-weight: bolder;"  name="total" readonly class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="labels">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 38%;"></td>
+                                <td style="width: 25%;">SGST(%)</td>
+                                <td><input type="number" step="0.1" value=2.5 id="SGST" style="width:70px" name="SGST" onchange oninput="cal_total()" class="form-control"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="fields"><input type="number" id="sgst" placeholder="-" name="sgst" readonly class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="labels">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 38%;"></td>
+                                <td style="width: 25%;">CGST(%)</td>
+                                <td><input type="number" step="0.1" value=2.5 id="CGST" style="width:70px" name="CGST" onchange oninput="cal_total()" class="form-control"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="fields"><input type="number" id="cgst"  placeholder="-" name="cgst" readonly class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="labels">Grand total</td>
+                    <td class="fields"><input type="number" name="round_off" id="round_off" placeholder="-" readonly class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="labels">Grand total in words</td>
+                    <td class="fields"><input type="text" id="grand_total_in_words" placeholder="-" style="text-align: center; width:100%" name="grand_total_in_words" readonly class="form-control"></td>
+                </tr>
+            </table>
+            <br>
+            <input type="submit" class="btn btn-success" value="View invoice"/>
+        </form>
+
+        <script>
+
+				// function changeStyles(id)
+				// {
+				// 	// document.getElementById(id).style.borderBottom = "2px solid red";
+				// 	document.getElementById(id).style.borderRadius = "0px";
+				// 	document.getElementById(id).style.background = "#383838";
+				// 	document.getElementById(id).style.color = "white";
+				// }
+
+				// function revert(id)
+				// {
+				// 	document.getElementById(id).style.borderRadius = "3px";
+				// 	document.getElementById(id).style.border = "none";
+				// 	document.getElementById(id).style.background = "white";
+				// 	document.getElementById(id).style.color = "black";
+				// }
+
+				function selectOps()
+				{
+					var index = document.getElementById("party_name").selectedIndex;
+					document.getElementById("address").selectedIndex = index;
+					document.getElementById("gstno").selectedIndex = index;
+				}
+
+				function selectOps1()
+				{
+					var index = document.getElementById("address").selectedIndex;
+					document.getElementById("party_name").selectedIndex = index;
+					document.getElementById("gstno").selectedIndex = index;
+				}
+
+				function selectOps2()
+				{
+					var index = document.getElementById("gstno").selectedIndex;
+					document.getElementById("address").selectedIndex = index;
+					document.getElementById("party_name").selectedIndex = index;
+				}
+
+				function cal_total()
+				{
+					qty=document.getElementById("qty").value;
+					rate=document.getElementById("rate").value;
+					// alert('rate : '+rate+' Qty :'+qty);
+					if(qty>0 && rate>0)
+					{
+						// alert('rate : '+rate+' Qty :'+qty);
+						// var igst = (0.18)*(rate*qty);
+						var total = rate*(qty/1000);
+
+						var cgst=Math.round(document.getElementById("CGST").value*(total)*(0.01));
+						var sgst=Math.round(document.getElementById("SGST").value*(total)*(0.01));
+						// var igst=document.getElementById("IGST").value*(rate*qty)*(0.01).toFixed(2);;
+						// alert('sgst : '+sgst+' cgst :'+cgst);
+
+						document.getElementById("total").value = Math.round(total);
+
+						var round_off = Math.round(total + cgst + sgst);
+
+						document.getElementById("round_off").value = round_off;
+						// document.getElementById("igst").value = igst.toFixed(2);;
+						document.getElementById("cgst").value = cgst;
+						document.getElementById("sgst").value = sgst;
+
+						// var round_off = Math.round(total + igst + cgst + sgst);
+						// document.getElementById("round_off").value = round_off;
+						// document.getElementById("grand_total").value = round_off;
+						document.getElementById("grand_total_in_words").value = inWords(round_off);
+					}
+					else
+					{
+						document.getElementById("total").value = '-';
+						document.getElementById("total1").value = '-';
+						document.getElementById("round_off").value = '-';
+						document.getElementById("igst").value = '-';
+						document.getElementById("cgst").value = '-';
+						document.getElementById("sgst").value = '-';
+						document.getElementById("grand_total").value = '-';
+						document.getElementById("grand_total_in_words").value = '-';
+					}
+				}
+
+				var a = ['','One ','Two ','Three ','Four ', 'Five ','Six ','Seven ','Eight ','Nine ','Ten ','Eleven ','Twelve ','Thirteen ','Fourteen ','Fifteen ','Sixteen ','Seventeen ','Eighteen ','Nineteen '];
+				var b = ['', '', 'Twenty','Thirty','Forty','Fifty', 'Sixty','Seventy','Eighty','Ninety'];
+
+				function inWords (num) {
+					if ((num = num.toString()).length > 9) return 'overflow';
+					n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+					if (!n) return; var str = '';
+					str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+					str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+					str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+					str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+					str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : '';
+					return str;
+				}
+
+			</script>
+    </div>
+</center>
+<br>
+<br>
+</body>
+</html>
+
+
+
+
